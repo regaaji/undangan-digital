@@ -33,6 +33,7 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
     transition: opacity 1s ease;
+    background: linear-gradient(160deg, #071e2e 0%, #0e3d5c 50%, #05111d 100%);
   }
   #cover-screen.hidden { opacity: 0; pointer-events: none; }
 
@@ -970,7 +971,8 @@
 
 <!-- COVER SINEMATIK -->
 <div id="cover-screen">
-  <video id="wedding-video" playsinline loop muted>
+  <video id="wedding-video" playsinline loop muted autoplay>
+    <!-- GANTI 'background3.mp4' DENGAN NAMA FILE VIDEO ANDA DI GITHUB -->
     <source src="background3.mp4" type="video/mp4">
   </video>
 
@@ -1126,7 +1128,7 @@
       <div class="timeline-item" data-aos="fade-right">
         <div class="timeline-content">
           <span class="timeline-emoji">🏫</span>
-          <p class="timeline-tahun">2019 — 2020</p>
+          <p class="timeline-tahun">2019 — 2022</p>
           <p class="timeline-judul">Awal Pertemuan</p>
           <p class="timeline-teks">Dua jiwa yang bertemu di bangku SMK, di mana senyuman pertama menjadi awal dari sebuah cerita indah yang tak terduga.</p>
         </div>
@@ -1325,7 +1327,20 @@
     document.getElementById('nama-tamu').textContent = decodeURIComponent(namaTamu);
   }
 
-  // ===== VIDEO TIDAK BERULANG =====
+  // ===== SETUP VIDEO PEMBUKA =====
+  // 1. Upload file video Anda ke folder 'undangan' di GitHub dengan nama misalnya: background3.mp4
+  // 2. Di baris 973, ganti src="background3.mp4" dengan nama file video Anda
+  // 3. Pastikan format video adalah MP4 (lebih kompatibel untuk mobile)
+  // 4. Durasi ideal video: 8-15 detik
+  //
+  // Contoh struktur folder GitHub:
+  // undangan/
+  // ├── undangan-pernikahan-v2.html
+  // ├── background3.mp4  (video pembuka)
+  // ├── gambar-rumah.jpg
+  // └── foto-prewed-*.jpg (untuk galeri)
+  
+  // ===== VIDEO TIMING CONTROL =====
   const video = document.getElementById('wedding-video');
   let videoMainkanSekaliSaja = false;
 

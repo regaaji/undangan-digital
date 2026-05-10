@@ -4,189 +4,360 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan - Rega & Safa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat:wght@300;400;500&family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --soft-blue: #f0f7ff;
-            --main-blue: #b3cde0;
-            --text-gold: #8e735b;
-            --dark-blue: #002b5b;
+            --bg-color: #f0f8ff; /* Biru sangat muda */
+            --primary: #90caf9; /* Biru aksen */
+            --secondary: #1565c0; /* Biru tua elegan */
+            --text-dark: #333333;
+            --white-glass: rgba(255, 255, 255, 0.85);
         }
 
-        body, html { 
-            margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; 
-            background-color: var(--soft-blue); color: #444; overflow-x: hidden; 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body, html {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        /* --- COVER LAYER --- */
+        /* TIPOGRAFI */
+        h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; }
+        .script { font-family: 'Great Vibes', cursive; color: var(--secondary); }
+        .text-sm { font-size: 0.85em; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* DEKORASI FLORAL (Sudut) */
+        .floral-top, .floral-bottom {
+            position: absolute; width: 150px; opacity: 0.8; pointer-events: none; z-index: 0;
+        }
+        .floral-top { top: 0; left: 0; }
+        .floral-bottom { bottom: 0; right: 0; transform: rotate(180deg); }
+
+        /* --- COVER (LAYER DEPAN) --- */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), 
-                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1000');
-            background-size: cover; background-position: center;
+            background: linear-gradient(rgba(240,248,255,0.7), rgba(240,248,255,0.9)), 
+                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1000') center/cover;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 2000; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-            text-align: center;
+            z-index: 9999; text-align: center;
+            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+        }
+        
+        .cover-content {
+            background: var(--white-glass); padding: 50px 30px;
+            border-radius: 150px 150px 15px 15px; /* Bentuk kubah estetik */
+            border: 1px solid white; box-shadow: 0 15px 35px rgba(144, 202, 249, 0.3);
+            width: 90%; max-width: 400px; z-index: 1; position: relative;
         }
 
-        .cover-box {
-            padding: 40px; border: 1px solid white; background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px); border-radius: 200px 200px 0 0;
+        /* --- MAIN CONTENT & SECTIONS --- */
+        #main-content { display: none; }
+        section { padding: 80px 20px; position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 100vh; background: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000') center/cover;
+            position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .hero::before { content: ''; position: absolute; top:0; left:0; right:0; bottom:0; background: linear-gradient(to bottom, rgba(0,0,0,0.2), var(--bg-color)); }
+        .hero-content { position: relative; z-index: 1; color: white; margin-top: auto; padding-bottom: 50px; }
+        .hero-content .script { font-size: 5em; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); color: white; }
+
+        /* --- FOTO KUBAH (ARCH) --- */
+        .arch-img {
+            width: 220px; height: 320px;
+            border-radius: 110px 110px 0 0; /* Bentuk jendela lengkung khas TikTok */
+            object-fit: cover;
+            border: 8px solid white; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
-        /* --- TYPOGRAPHY --- */
-        .script-font { font-family: 'Playfair Display', serif; font-style: italic; }
-        .serif-font { font-family: 'Cinzel', serif; letter-spacing: 3px; }
-
-        /* --- SECTIONS --- */
-        section { padding: 100px 20px; text-align: center; }
-        .hero { 
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; 
-            background: url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000') center/cover no-repeat;
-            color: white; position: relative;
+        /* --- LOVE STORY TIMELINE --- */
+        .timeline {
+            position: relative; max-width: 400px; margin: 40px auto; text-align: left;
+            border-left: 2px dashed var(--primary); padding-left: 30px;
         }
-
-        /* --- CATIN PROFIL --- */
-        .catin-foto {
-            width: 220px; height: 320px; margin: 0 auto 20px;
-            border-radius: 110px; border: 10px solid white;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            background-size: cover; background-position: center;
+        .timeline-item { margin-bottom: 40px; position: relative; }
+        .timeline-item::before {
+            content: '♥'; position: absolute; left: -42px; top: 0;
+            background: var(--bg-color); color: var(--secondary); font-size: 1.2em;
+            width: 24px; height: 24px; text-align: center; line-height: 24px;
         }
-
-        /* --- STORY TIMELINE --- */
-        .story-card {
-            max-width: 500px; margin: 20px auto; padding: 30px;
-            background: white; border-radius: 20px; border-bottom: 5px solid var(--main-blue);
+        .timeline-box {
+            background: white; padding: 20px; border-radius: 0 20px 20px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid var(--primary);
         }
 
         /* --- COUNTDOWN --- */
+        .timer-wrapper { display: flex; gap: 15px; justify-content: center; margin: 30px 0; }
         .timer-box {
-            display: flex; justify-content: center; gap: 15px; margin: 30px 0;
+            background: var(--secondary); color: white; width: 70px; height: 80px;
+            display: flex; flex-direction: column; justify-content: center; border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(21, 101, 192, 0.3);
         }
-        .timer-unit {
-            background: var(--dark-blue); color: white;
-            padding: 15px; border-radius: 15px; min-width: 70px;
-        }
+        .timer-box span { font-size: 1.8em; font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+        .timer-box small { font-size: 0.6em; letter-spacing: 1px; }
 
-        /* --- GIFT BOX --- */
-        .gift-container {
-            background: white; padding: 40px 20px; border-radius: 30px;
-            max-width: 500px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        /* --- BUTTONS & ICONS --- */
+        .btn {
+            background: var(--secondary); color: white; padding: 12px 30px;
+            border-radius: 50px; text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.9em; font-weight: 500; border: none; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(21, 101, 192, 0.3);
         }
+        .btn:hover { background: #0d47a1; transform: translateY(-3px); }
 
-        /* --- BUTTONS --- */
-        .btn-action {
-            background: var(--dark-blue); color: white; padding: 12px 30px;
-            border-radius: 50px; text-decoration: none; display: inline-block;
-            margin-top: 15px; border: none; cursor: pointer; font-size: 0.9em;
+        /* --- MUSIC PLAYER --- */
+        #music-btn {
+            position: fixed; bottom: 30px; right: 20px; z-index: 1000;
+            width: 50px; height: 50px; background: white; border-radius: 50%;
+            display: none; justify-content: center; align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); cursor: pointer; color: var(--secondary);
+            font-size: 1.2em; animation: spin 4s linear infinite; border: 2px solid var(--primary);
         }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .paused { animation-play-state: paused !important; }
 
-        #main-content { display: none; }
-        .open-animation { transform: translateY(-100%); }
+        /* --- TOAST NOTIFICATION --- */
+        #toast {
+            visibility: hidden; min-width: 250px; background-color: var(--secondary); color: #fff;
+            text-align: center; border-radius: 50px; padding: 12px; position: fixed;
+            z-index: 9999; left: 50%; bottom: 30px; font-size: 0.9em;
+            transform: translateX(-50%); opacity: 0; transition: opacity 0.5s, bottom 0.5s;
+        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+        .slide-up { transform: translateY(-100%); }
+        .glass-panel { background: var(--white-glass); padding: 40px 20px; border-radius: 20px; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
 
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </div>
+
+    <div id="toast"><i class="fas fa-check-circle"></i> Berhasil disalin!</div>
+
     <div id="cover">
-        <div class="cover-box" data-aos="fade-up">
-            <p class="serif-font" style="font-size: 0.8em;">THE WEDDING OF</p>
-            <h1 class="script-font" style="font-size: 3em; color: var(--dark-blue); margin: 10px 0;">Rega & Safa</h1>
-            <p style="margin-top: 30px; font-size: 0.9em;">Kepada Yth:</p>
-            <h2 id="tamu" class="serif-font" style="font-size: 1.2em;">Nama Tamu</h2>
-            <button class="btn-action" onclick="mulaiUndangan()">Buka Undangan</button>
+        <img src="https://cdn-icons-png.flaticon.com/512/6183/6183088.png" class="floral-top" style="filter: opacity(0.2) drop-shadow(0 0 0 var(--secondary));">
+        
+        <div class="cover-content" data-aos="zoom-in" data-aos-duration="1500">
+            <p class="text-sm">THE WEDDING OF</p>
+            <h1 class="script" style="font-size: 3.5em; margin: 15px 0;">Rega & Safa</h1>
+            
+            <div style="margin: 30px 0;">
+                <p style="font-size: 0.9em; color: #666;">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+                <h2 id="tamu" class="serif" style="font-size: 1.5em; margin-top: 5px; font-weight: 600;">Nama Tamu</h2>
+            </div>
+            
+            <button class="btn" onclick="bukaUndangan()">
+                <i class="fas fa-envelope-open-text"></i> Buka Undangan
+            </button>
         </div>
     </div>
 
     <div id="main-content">
+        
         <div class="hero">
-            <div data-aos="fade-up" data-aos-duration="2000">
-                <p class="serif-font">SAVE THE DATE</p>
-                <h1 class="script-font" style="font-size: 5em; margin: 0;">Rega & Safa</h1>
-                <p class="serif-font">29 . 07 . 2026</p>
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="2000">
+                <p class="text-sm" style="color: #e3f2fd;">SAVE THE DATE</p>
+                <h1 class="script">Rega & Safa</h1>
+                <p class="serif" style="font-size: 1.5em; letter-spacing: 3px;">29 . 07 . 2026</p>
+                <i class="fas fa-chevron-down" style="margin-top: 30px; animation: bounce 2s infinite;"></i>
             </div>
         </div>
 
         <section>
-            <div data-aos="fade-up">
-                <p class="script-font" style="font-size: 1.2em; color: var(--dark-blue);">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..."</p>
-                <p><b>QS. Ar-Rum: 21</b></p>
+            <div class="glass-panel" data-aos="fade-up">
+                <p class="serif" style="font-size: 1.2em; font-weight: 600; color: var(--secondary);">Assalamu'alaikum Wr. Wb.</p>
+                <p style="font-size: 0.9em; line-height: 1.8; margin-top: 15px;">Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Ya Allah, perkenankanlah kami merangkaikan kasih sayang yang Kau ciptakan di antara kami.</p>
+                <br>
+                <p class="serif" style="font-style: italic; color: var(--secondary);">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..."</p>
+                <p style="font-size: 0.8em; margin-top: 10px; font-weight: bold;">(QS. Ar-Rum: 21)</p>
             </div>
         </section>
 
         <section style="background: white;">
-            <div class="catin-foto" style="background-image: url('https://via.placeholder.com/220x320');" data-aos="zoom-in"></div>
-            <h2 class="serif-font">Rega Aji Prayogo</h2>
-            <p>Putra dari Bapak Nurkolis & Ibu Turistiana</p>
+            <h2 class="script" style="font-size: 3em;" data-aos="fade-down">Sang Mempelai</h2>
             
-            <h1 class="script-font" style="font-size: 3em; margin: 40px 0; color: var(--main-blue);">&</h1>
+            <div style="margin-top: 40px;" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400" alt="Rega" class="arch-img">
+                <h2 class="serif" style="font-size: 2em; color: var(--secondary);">Rega Aji Prayogo</h2>
+                <p style="font-size: 0.9em; color: #666;">Putra Pertama dari<br>Bapak Nurkolis & Ibu Turistiana</p>
+            </div>
 
-            <div class="catin-foto" style="background-image: url('https://via.placeholder.com/220x320');" data-aos="zoom-in"></div>
-            <h2 class="serif-font">Safa Tri Asriani</h2>
-            <p>Putri dari Bapak [Nama Ayah] & Ibu [Nama Ibu]</p>
+            <h1 class="script" style="font-size: 4em; color: var(--primary); margin: 30px 0;" data-aos="zoom-in">&</h1>
+
+            <div data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400" alt="Safa" class="arch-img">
+                <h2 class="serif" style="font-size: 2em; color: var(--secondary);">Safa Tri Asriani</h2>
+                <p style="font-size: 0.9em; color: #666;">Putri dari<br>Bapak [Nama Ayah] & Ibu [Nama Ibu]</p>
+            </div>
         </section>
 
         <section>
-            <h2 class="serif-font" data-aos="fade-right">OUR JOURNEY</h2>
-            <div class="story-card" data-aos="fade-up">
-                <h3 class="serif-font" style="font-size: 1em; color: var(--dark-blue);">TEMAN SMK</h3>
-                <p>Berawal dari kawan sekolah, tumbuh rasa yang tak biasa seiring waktu bergulir.</p>
-            </div>
-            <div class="story-card" data-aos="fade-up">
-                <h3 class="serif-font" style="font-size: 1em; color: var(--dark-blue);">LAMARAN - MEI 2026</h3>
-                <p>Langkah serius kami ambil untuk menyatukan dua keluarga besar dalam ikatan suci.</p>
-            </div>
-        </section>
-
-        <section style="background: var(--main-blue); color: var(--dark-blue);">
-            <div class="gift-container" data-aos="zoom-in">
-                <h2 class="serif-font">REBO WAGE</h2>
-                <h1 class="script-font" style="font-size: 3em;">29 Juli 2026</h1>
-                <p>Akad: 09.00 WIB | Lokasi: Trenggalek</p>
-                
-                <div class="timer-box">
-                    <div class="timer-unit"><span id="d">00</span><br><small>Hari</small></div>
-                    <div class="timer-unit"><span id="h">00</span><br><small>Jam</small></div>
-                    <div class="timer-unit"><span id="m">00</span><br><small>Menit</small></div>
+            <h2 class="script" style="font-size: 3em;" data-aos="fade-right">Kisah Cinta Kami</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-box">
+                        <h3 class="serif" style="color: var(--secondary);">Masa SMK</h3>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Berawal dari seragam putih abu-abu, kami saling mengenal sebagai teman sekolah biasa yang sering bertukar tawa.</p>
+                    </div>
                 </div>
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-box">
+                        <h3 class="serif" style="color: var(--secondary);">Menjalin Rasa</h3>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Waktu berlalu, rasa nyaman itu tumbuh. Kami memutuskan untuk saling menjaga komitmen dan mendukung satu sama lain.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-box">
+                        <h3 class="serif" style="color: var(--secondary);">Mei 2026 - Lamaran</h3>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Dengan niat baik, dua keluarga bertemu. Sebuah cincin menjadi tanda keseriusan langkah kami menuju ibadah terpanjang.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" data-aos="fade-up">
+                    <div class="timeline-box">
+                        <h3 class="serif" style="color: var(--secondary);">29 Juli 2026 - Menikah</h3>
+                        <p style="font-size: 0.85em; margin-top: 5px;">Hari dimana janji suci diikrarkan. Memulai lembaran baru sebagai sepasang suami istri karena Allah SWT.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: white;">
+            <div class="glass-panel" style="border: 2px solid var(--primary);" data-aos="zoom-in">
+                <p class="text-sm">RANGKAIAN ACARA</p>
+                <h2 class="script" style="font-size: 3em; margin: 10px 0;">Akad & Resepsi</h2>
                 
-                <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Rega+%26+Safa&dates=20260729T020000Z/20260729T100000Z" class="btn-action">SIMPAN TANGGAL</a>
+                <div style="padding: 20px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin: 20px 0;">
+                    <h3 class="serif" style="font-size: 1.5em; color: var(--secondary);">Rabu Wage</h3>
+                    <p style="font-size: 1.2em; font-weight: bold;">29 JULI 2026</p>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Pukul 09.00 WIB - Selesai</p>
+                    <p style="font-size: 0.9em; font-weight: bold; margin-top: 5px;">Trenggalek, Jawa Timur</p>
+                </div>
+
+                <div class="timer-wrapper">
+                    <div class="timer-box"><span id="hari">00</span><small>HARI</small></div>
+                    <div class="timer-box"><span id="jam">00</span><small>JAM</small></div>
+                    <div class="timer-box"><span id="menit">00</span><small>MENIT</small></div>
+                    <div class="timer-box"><span id="detik">00</span><small>DETIK</small></div>
+                </div>
+
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Rega+%26+Safa&dates=20260729T020000Z/20260729T100000Z&details=Acara+Pernikahan+Rega+Aji+Prayogo+dan+Safa+Tri+Asriani&location=Trenggalek,+Jawa+Timur" 
+                   target="_blank" class="btn" style="margin-top: 10px;">
+                   <i class="far fa-calendar-alt"></i> Simpan Tanggal
+                </a>
             </div>
         </section>
 
         <section>
-            <h2 class="serif-font">WEDDING GIFT</h2>
-            <div class="gift-container" data-aos="fade-up">
-                <p>Bagi yang ingin mengirimkan kado digital:</p>
-                <p><b>BANK BRI</b><br>1234-5678-9012<br>a.n Rega Aji Prayogo</p>
-                <button class="btn-action" onclick="alert('Nomor Rekening Disalin!')">SALIN NOMOR</button>
+            <h2 class="script" style="font-size: 3em;" data-aos="fade-down">Wedding Gift</h2>
+            <p style="font-size: 0.9em; margin: 10px 0 30px; max-width: 400px;" data-aos="fade-up">Doa restu Anda adalah kado terindah bagi kami. Namun jika Anda ingin memberikan tanda kasih, dapat melalui fitur di bawah ini:</p>
+            
+            <div class="glass-panel" style="margin-bottom: 20px;" data-aos="flip-left">
+                <h3 class="serif" style="font-size: 1.5em; color: var(--secondary);">BANK BRI</h3>
+                <p style="font-size: 1.2em; letter-spacing: 2px; margin: 10px 0; font-weight: 600;">1234 5678 9012 345</p>
+                <p style="font-size: 0.9em; margin-bottom: 15px;">a.n. Rega Aji Prayogo</p>
+                <button class="btn" style="padding: 8px 20px; font-size: 0.8em;" onclick="salinTeks('123456789012345')">
+                    <i class="far fa-copy"></i> Salin Rekening
+                </button>
+            </div>
+
+            <div class="glass-panel" data-aos="flip-right">
+                <h3 class="serif" style="font-size: 1.5em; color: var(--secondary);">DANA / SHOPEEPAY</h3>
+                <p style="font-size: 1.2em; letter-spacing: 2px; margin: 10px 0; font-weight: 600;">0812 3456 7890</p>
+                <p style="font-size: 0.9em; margin-bottom: 15px;">a.n. Safa Tri Asriani</p>
+                <button class="btn" style="padding: 8px 20px; font-size: 0.8em;" onclick="salinTeks('081234567890')">
+                    <i class="far fa-copy"></i> Salin Nomor
+                </button>
             </div>
         </section>
+
+        <section style="background: white; padding-bottom: 100px;">
+            <div data-aos="zoom-in">
+                <h2 class="script" style="font-size: 2.5em; color: var(--secondary);">Terima Kasih</h2>
+                <p style="font-size: 0.9em; max-width: 400px; margin: 15px auto;">Merupakan suatu kebahagiaan dan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+                <p class="serif" style="font-size: 1.2em; margin-top: 20px; font-weight: bold; color: var(--secondary);">Rega & Safa</p>
+            </div>
+        </section>
+
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 1200 });
+        // Inisialisasi Animasi Scroll
+        AOS.init({ duration: 1000, once: true });
 
-        function mulaiUndangan() {
-            document.getElementById('cover').classList.add('open-animation');
+        const audio = document.getElementById("bg-music");
+        const musicBtn = document.getElementById("music-btn");
+
+        // FUNGSI BUKA UNDANGAN
+        function bukaUndangan() {
+            document.getElementById('cover').classList.add('slide-up');
             document.getElementById('main-content').style.display = 'block';
             document.body.style.overflow = 'auto';
+            window.scrollTo(0,0);
+            
+            // Putar Musik Otomatis
+            audio.play();
+            musicBtn.style.display = 'flex';
         }
 
-        const target = new Date("July 29, 2026 09:00:00").getTime();
+        // FUNGSI TOGGLE MUSIK
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicBtn.classList.remove('paused');
+            } else {
+                audio.pause();
+                musicBtn.classList.add('paused');
+            }
+        }
+
+        // FUNGSI COUNTDOWN MUNDUR
+        const targetDate = new Date("July 29, 2026 09:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
-            const gap = target - now;
-            document.getElementById("d").innerText = Math.floor(gap / (1000*60*60*24));
-            document.getElementById("h").innerText = Math.floor((gap % (1000*60*60*24)) / (1000*60*60));
-            document.getElementById("m").innerText = Math.floor((gap % (1000*60*60)) / (1000*60));
+            const distance = targetDate - now;
+
+            document.getElementById("hari").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+            document.getElementById("jam").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+            document.getElementById("menit").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            document.getElementById("detik").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
         }, 1000);
 
+        // FUNGSI SALIN TEKS (NOTIFIKASI ESTETIK)
+        function salinTeks(text) {
+            navigator.clipboard.writeText(text);
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        // KUNCI SCROLL SEBELUM DIBUKA
         document.body.style.overflow = 'hidden';
-        const name = new URLSearchParams(window.location.search).get('to');
-        if (name) document.getElementById('tamu').innerText = name;
+
+        // AMBIL NAMA TAMU DARI URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const nama = urlParams.get('to');
+        if (nama) {
+            document.getElementById('tamu').innerText = nama;
+        }
     </script>
 </body>
 </html>

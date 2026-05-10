@@ -15,6 +15,7 @@
             --dana-blue: linear-gradient(135deg, #118eea 0%, #005696 100%);
             --dark-blue: #0d47a1;
             --soft-blue: #f0f7ff;
+            --gold: #bca371;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,10 +46,9 @@
         #main-content { display: none; }
         section { padding: 80px 20px; text-align: center; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
 
-        /* SIMBOL & DI TENAH */
-        .couple-name { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-        .couple-name span { display: block; }
-        .ampersand { font-size: 0.6em; color: #bca371; margin: 5px 0; }
+        /* SIMBOL & DI TENGAH */
+        .couple-name { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+        .ampersand { font-size: 0.6em; color: var(--gold); margin: 10px 0; }
 
         /* ARCH FRAME */
         .arch-frame {
@@ -58,34 +58,35 @@
 
         /* ATM CARD DESIGN */
         .atm-card {
-            width: 100%; max-width: 350px; height: 200px; border-radius: 15px;
-            padding: 25px; color: white; position: relative; margin: 15px auto;
+            width: 100%; max-width: 320px; height: 190px; border-radius: 15px;
+            padding: 20px; color: white; position: relative; margin: 20px auto;
             text-align: left; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
+            transition: 0.3s;
         }
-        .atm-card:hover { transform: translateY(-5px); }
         .card-bri { background: var(--bri-blue); }
         .card-dana { background: var(--dana-blue); }
-        .chip { width: 45px; height: 35px; background: #ffd700; border-radius: 5px; margin-bottom: 20px; opacity: 0.8; }
-        .card-number { font-size: 1.4em; letter-spacing: 3px; font-family: 'Courier New', Courier, monospace; margin-bottom: 10px; display: block; }
-        .card-holder { font-size: 0.9em; text-transform: uppercase; letter-spacing: 1px; }
-        .bank-logo { position: absolute; top: 25px; right: 25px; font-weight: bold; font-style: italic; }
+        .chip { width: 40px; height: 30px; background: linear-gradient(135deg, #ffd700, #bca371); border-radius: 5px; margin-bottom: 25px; }
+        .card-number { font-size: 1.2em; letter-spacing: 2px; font-family: 'Courier New', monospace; margin-bottom: 10px; display: block; }
+        .card-holder { font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; }
 
         /* TIMER */
-        .timer-grid { display: flex; gap: 8px; margin: 30px 0; }
-        .t-box { background: var(--dark-blue); color: white; padding: 12px; border-radius: 12px; min-width: 65px; }
-        .t-box span { display: block; font-size: 1.3em; font-weight: bold; }
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 30px 0; width: 100%; }
+        .t-box { background: var(--dark-blue); color: white; padding: 10px 5px; border-radius: 10px; }
+        .t-box span { display: block; font-size: 1.2em; font-weight: bold; }
+        .t-box small { font-size: 0.6em; }
 
         .btn {
             background: var(--dark-blue); color: white; padding: 12px 30px;
-            border-radius: 50px; text-decoration: none; border: none; cursor: pointer; transition: 0.3s;
+            border-radius: 50px; text-decoration: none; border: none; cursor: pointer; transition: 0.3s; font-weight: 600;
         }
 
         #music-btn {
             position: fixed; bottom: 20px; left: 20px; z-index: 1000;
             width: 45px; height: 45px; background: white; border-radius: 50%;
             display: none; justify-content: center; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: spin 4s linear infinite;
         }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -95,25 +96,28 @@
 
     <div id="cover">
         <div class="cover-card" data-aos="zoom-in">
-            <h1 class="script couple-name" style="font-size: 3em;">
+            <p style="letter-spacing: 3px; font-size: 0.8em; margin-bottom: 10px;">THE WEDDING OF</p>
+            <h1 class="script couple-name" style="font-size: 3.5em;">
                 <span>Rega</span>
                 <span class="ampersand">&</span>
                 <span>Safa</span>
             </h1>
-            <p style="margin: 20px 0;">Kepada Yth: <br><strong id="tamu" class="serif" style="font-size: 1.4em;">Nama Tamu</strong></p>
+            <div style="margin: 30px 0;">
+                <p style="font-size: 0.9em; color: #666;">Kepada Yth: <br><strong id="tamu" class="serif" style="font-size: 1.5em; color: var(--dark-blue);">Nama Tamu</strong></p>
+            </div>
             <button class="btn" onclick="start()">BUKA UNDANGAN</button>
         </div>
     </div>
 
     <div id="main-content">
-        <section style="background: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000') center/cover;">
-            <div data-aos="fade-up" style="color: white; background: rgba(0,0,0,0.3); padding: 40px; border-radius: 20px;">
-                <h1 class="script couple-name" style="font-size: 5em; color: white;">
+        <section style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1000') center/cover;">
+            <div data-aos="fade-up">
+                <h1 class="script couple-name" style="font-size: 5.5em; color: white;">
                     <span>Rega</span>
                     <span class="ampersand" style="color: white;">&</span>
                     <span>Safa</span>
                 </h1>
-                <p class="serif" style="letter-spacing: 5px; font-size: 1.5em;">29 . 07 . 2026</p>
+                <p class="serif" style="letter-spacing: 5px; font-size: 1.5em; color: white;">29 . 07 . 2026</p>
             </div>
         </section>
 
@@ -122,107 +126,127 @@
             <div style="margin-top: 40px;">
                 <div data-aos="fade-right">
                     <img src="https://via.placeholder.com/200x300" class="arch-frame">
-                    <h2 class="serif">Rega Aji Prayogo</h2>
-                    <p>Putra dari Bpk. Nurkolis & Ibu Turistiana</p>
+                    <h2 class="serif" style="margin-top: 15px;">Rega Aji Prayogo</h2>
+                    <p style="font-size: 0.9em;">Putra dari Bapak Nurkolis & Ibu Turistiana</p>
                 </div>
-                <div class="ampersand script" style="font-size: 3em; margin: 30px 0;">&</div>
+                <div class="ampersand script" style="font-size: 3em; margin: 20px 0;">&</div>
                 <div data-aos="fade-left">
                     <img src="https://via.placeholder.com/200x300" class="arch-frame">
-                    <h2 class="serif">Safa Tri Asriani</h2>
-                    <p>Putri dari Bpk. [Nama Ayah] & Ibu [Nama Ibu]</p>
+                    <h2 class="serif" style="margin-top: 15px;">Safa Tri Asriani</h2>
+                    <p style="font-size: 0.9em;">Putri dari Bapak [Nama] & Ibu [Nama]</p>
                 </div>
             </div>
         </section>
 
         <section style="background: var(--soft-blue);">
-            <div data-aos="zoom-in" style="background: white; padding: 40px 20px; border-radius: 30px; max-width: 500px;">
-                <h2 class="serif">SAVE THE DATE</h2>
+            <div data-aos="zoom-in" style="background: white; padding: 40px 20px; border-radius: 30px; max-width: 500px; width: 100%;">
+                <h2 class="serif" style="letter-spacing: 3px;">SAVE THE DATE</h2>
                 <h1 class="serif" style="color: var(--dark-blue); margin: 15px 0;">Rabu Wage, 29 Juli 2026</h1>
                 
                 <div class="timer-grid">
-                    <div class="t-box"><span id="d">00</span> Hari</div>
-                    <div class="t-box"><span id="h">00</span> Jam</div>
-                    <div class="t-box"><span id="m">00</span> Min</div>
-                    <div class="t-box"><span id="s">00</span> Det</div>
+                    <div class="t-box"><span id="d">00</span><small>HARI</small></div>
+                    <div class="t-box"><span id="h">00</span><small>JAM</small></div>
+                    <div class="t-box"><span id="m">00</span><small>MENIT</small></div>
+                    <div class="t-box"><span id="s">00</span><small>DETIK</small></div>
                 </div>
 
-                <p><b>Akad Nikah:</b> 09:00 WIB<br><b>Resepsi:</b> 11:00 WIB - Selesai</p>
-                <p style="margin-top: 15px;">Desa Gembleb, Kec. Pogalan, Trenggalek</p>
-                <a href="#" class="btn" style="display: block; margin-top: 20px;">LIHAT LOKASI</a>
+                <p style="margin-bottom: 10px;"><b>Lokasi Acara:</b></p>
+                <p>Kediaman Mempelai Wanita<br>Desa Gembleb, Kec. Pogalan, Trenggalek</p>
+                <a href="#" class="btn" style="display: inline-block; margin-top: 20px;">PETUNJUK LOKASI</a>
             </div>
         </section>
 
         <section style="background: white; text-align: left; align-items: flex-start; max-width: 500px; margin: 0 auto;">
             <h2 class="script" style="font-size: 3.5em; text-align: center; width: 100%;" data-aos="fade-up">Our Journey</h2>
-            <div style="border-left: 2px solid var(--dark-blue); padding-left: 25px; margin-top: 30px;">
+            <div style="border-left: 2px solid var(--dark-blue); padding-left: 25px; margin-top: 30px; margin-left: 20px;">
                 <div data-aos="fade-left" style="margin-bottom: 30px;">
                     <h3 class="serif">Masa SMK</h3>
-                    <p>Awal perkenalan kami di bangku sekolah yang menumbuhkan rasa nyaman satu sama lain.</p>
+                    <p style="font-size: 0.9em;">Awal perkenalan kami di bangku sekolah yang menumbuhkan rasa nyaman satu sama lain.</p>
                 </div>
                 <div data-aos="fade-left" data-aos-delay="200" style="margin-bottom: 30px;">
                     <h3 class="serif">Lamaran - April 2026</h3>
-                    <p>Setelah sekian lama bersama, kami memutuskan untuk mengikat janji dalam sebuah komitmen lamaran yang khidmat.</p>
+                    <p style="font-size: 0.9em;">Setelah perjalanan panjang, kami memutuskan untuk mengikat janji suci dalam acara lamaran yang khidmat.</p>
                 </div>
                 <div data-aos="fade-left" data-aos-delay="400">
                     <h3 class="serif">Pernikahan - 29 Juli 2026</h3>
-                    <p>Hari di mana kami menyatukan cinta dalam ikatan suci pernikahan di hadapan keluarga dan saksi.</p>
+                    <p style="font-size: 0.9em;">Hari yang kami tunggu untuk memulai ibadah terlama kami dalam bahtera rumah tangga.</p>
                 </div>
             </div>
         </section>
 
         <section>
-            <div data-aos="fade-up" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+            <div data-aos="fade-up" style="background: white; padding: 40px 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%;">
                 <h2 class="serif">Ucapan & Doa</h2>
-                <p style="margin: 20px 0; font-style: italic;">"Kehadiran Anda adalah kado terindah, namun doa restu Anda adalah yang utama."</p>
+                <p style="margin: 20px 0; font-style: italic; color: #666;">"Sampaikan pesan cinta dan doa restu Anda untuk kami berdua."</p>
                 <a href="https://forms.gle/yourlink" target="_blank" class="btn">ISI BUKU TAMU</a>
             </div>
         </section>
 
         <section style="background: var(--soft-blue);">
             <h2 class="script" style="font-size: 3.5em;" data-aos="fade-down">Wedding Gift</h2>
-            <p style="margin-bottom: 30px;">Kirim kado digital Anda melalui kartu di bawah ini:</p>
+            <p style="margin-bottom: 20px;">Kado digital dapat dikirimkan melalui:</p>
             
             <button class="btn" onclick="showGift()">KLIK DI SINI</button>
 
             <div id="gift-area" style="display: none; width: 100%; margin-top: 30px;">
                 <div class="atm-card card-bri" data-aos="flip-right">
-                    <div class="bank-logo">BRI</div>
-                    <div class="chip"></div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div class="chip"></div>
+                        <b style="font-style: italic;">BRI</b>
+                    </div>
                     <span class="card-number">1234 5678 9012 345</span>
                     <p class="card-holder">Rega Aji Prayogo</p>
-                    <button onclick="alert('Rekening Disalin!')" style="position: absolute; bottom: 20px; right: 20px; background: white; color: #01579b; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.7em;">Salin</button>
+                    <button onclick="copy('123456789012345')" style="position: absolute; bottom: 20px; right: 20px; background: white; color: #01579b; border: none; padding: 5px 12px; border-radius: 5px; font-size: 0.7em; cursor: pointer;">Salin</button>
                 </div>
 
                 <div class="atm-card card-dana" data-aos="flip-right" data-aos-delay="200">
-                    <div class="bank-logo">DANA</div>
-                    <div class="chip"></div>
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <div class="chip"></div>
+                        <b style="font-style: italic;">DANA</b>
+                    </div>
                     <span class="card-number">0812 3456 7890</span>
                     <p class="card-holder">Safa Tri Asriani</p>
-                    <button onclick="alert('Nomor DANA Disalin!')" style="position: absolute; bottom: 20px; right: 20px; background: white; color: #118eea; border: none; padding: 5px 10px; border-radius: 5px; font-size: 0.7em;">Salin</button>
+                    <button onclick="copy('081234567890')" style="position: absolute; bottom: 20px; right: 20px; background: white; color: #118eea; border: none; padding: 5px 12px; border-radius: 5px; font-size: 0.7em; cursor: pointer;">Salin</button>
                 </div>
+            </div>
+        </section>
+
+        <section style="background: white; padding-bottom: 100px;">
+            <div data-aos="zoom-in">
+                <h1 class="script" style="font-size: 4em;">Terima Kasih</h1>
+                <p style="margin: 20px 0;">Atas kehadiran dan doa restunya</p>
+                <p>Kami yang berbahagia,</p>
+                <h2 class="serif" style="font-weight: bold; margin-top: 10px;">REGA & SAFA</h2>
             </div>
         </section>
     </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Inisialisasi awal agar cover muncul
+        AOS.init({ duration: 1000, once: true });
+
         function start() {
             document.getElementById('cover').style.transform = 'translateY(-100%)';
             document.getElementById('main-content').style.display = 'block';
             document.body.style.overflow = 'auto';
-            document.getElementById('bgm').play();
+            
+            const song = document.getElementById('bgm');
+            song.play();
             document.getElementById('music-btn').style.display = 'flex';
             
-            // PERBAIKAN ANIMASI: Inisialisasi ulang setelah konten muncul
-            setTimeout(() => {
-                AOS.init({ duration: 1200, once: true });
-                AOS.refresh(); 
-            }, 100);
+            // Refresh AOS agar konten di bawah terbaca
+            setTimeout(() => { AOS.refresh(); }, 200);
         }
 
         function showGift() {
             document.getElementById('gift-area').style.display = 'block';
-            AOS.refresh(); // Biar kartu ATM-nya muncul dengan animasi
+            AOS.refresh(); 
+        }
+
+        function copy(txt) {
+            navigator.clipboard.writeText(txt);
+            alert('Berhasil disalin: ' + txt);
         }
 
         function togglePlay() {
@@ -230,7 +254,6 @@
             m.paused ? m.play() : m.pause();
         }
 
-        // TIMER LENGKAP DETIK
         const target = new Date("July 29, 2026 09:00:00").getTime();
         setInterval(() => {
             const diff = target - new Date().getTime();

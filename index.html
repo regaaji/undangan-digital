@@ -4,164 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Undangan Pernikahan - Rega & Safa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&family=Playfair+Display:italic,wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;700&family=Playfair+Display:italic,wght@400;700&display=swap');
+        :root {
+            --primary-blue: #bbdefb;
+            --dark-blue: #1565c0;
+            --bg-light: #f8fbff;
+        }
 
         body, html {
             margin: 0; padding: 0;
             font-family: 'Montserrat', sans-serif;
-            background-color: #f0f7ff;
-            scroll-behavior: smooth;
-            color: #333;
+            background-color: var(--bg-light);
+            color: #333; overflow-x: hidden;
         }
 
-        /* --- COVER & HERO (Sama seperti sebelumnya) --- */
+        /* --- COVER (SAMPUL DEPAN) --- */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(187, 222, 251, 0.9), rgba(187, 222, 251, 0.9)), 
-                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1000');
+            background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), 
+                        url('https://images.unsplash.com/photo-1550005809-91ad75fb315f?q=80&w=1000'); /* BG Cover */
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            z-index: 1000; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-            text-align: center; color: #0d47a1;
+            z-index: 1000; transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+            text-align: center;
         }
 
+        .cover-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px; border-radius: 50% 50% 0 0;
+            border: 2px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- HERO SECTION --- */
         .hero {
-            height: 100vh; width: 100%;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover; background-position: center;
+            height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            color: white; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1000');
+            background-size: cover; background-attachment: fixed; color: white;
         }
 
-        /* --- SECTIONS --- */
-        section { padding: 60px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
-        
-        .section-title { font-family: 'Great Vibes', cursive; font-size: 3em; color: #1565c0; margin-bottom: 20px; }
+        .hero h1 { font-family: 'Great Vibes', cursive; font-size: 5em; margin: 0; text-shadow: 2px 2px 15px rgba(0,0,0,0.3); }
 
-        /* --- AR RUM SECTION --- */
-        .quran-box { font-family: 'Playfair Display', serif; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .arabic { font-size: 1.5em; margin-bottom: 15px; line-height: 2; color: #0d47a1; }
-        .arti { font-style: italic; font-size: 0.9em; line-height: 1.6; }
+        /* --- SECTION UMUM --- */
+        section { padding: 80px 20px; text-align: center; }
+        
+        .glass-card {
+            background: white; padding: 40px 25px;
+            border-radius: 30px; box-shadow: 0 15px 35px rgba(187, 222, 251, 0.3);
+            max-width: 600px; margin: 0 auto; border: 1px solid var(--primary-blue);
+        }
 
         /* --- PROFIL CATIN --- */
-        .catin-container { display: flex; flex-wrap: wrap; justify-content: space-around; gap: 30px; margin-top: 40px; }
-        .catin-card { flex: 1; min-width: 250px; }
-        .foto-lingkaran {
-            width: 180px; height: 180px;
-            border-radius: 50%;
-            border: 5px solid #bbdefb;
+        .foto-frame {
+            width: 200px; height: 280px;
+            border-radius: 100px; /* Bentuk kapsul estetik seperti di video */
             margin: 0 auto 20px;
-            overflow: hidden;
-            background-size: cover;
-            background-position: center;
+            border: 8px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-size: cover; background-position: center;
         }
-        .nama-lengkap { font-family: 'Playfair Display', serif; font-weight: bold; font-size: 1.4em; color: #1565c0; }
-        .ortu { font-size: 0.85em; color: #666; margin-top: 5px; }
 
-        /* --- LOVE STORY (Timeline) --- */
-        .timeline { position: relative; max-width: 600px; margin: 40px auto; text-align: left; }
-        .timeline::after { content: ''; position: absolute; width: 2px; background: #bbdefb; top: 0; bottom: 0; left: 20px; }
-        .timeline-item { padding: 10px 40px; position: relative; }
-        .timeline-item::after { content: '❤'; position: absolute; width: 20px; height: 20px; left: 10px; top: 15px; background: white; color: #1565c0; font-size: 12px; text-align: center; border-radius: 50%; z-index: 1; border: 1px solid #bbdefb; }
-        .timeline-date { font-weight: bold; color: #1976d2; font-size: 0.9em; }
-        .timeline-text { font-size: 0.9em; color: #555; }
+        /* --- LOVE STORY TIMELINE --- */
+        .story-box {
+            text-align: left; border-left: 2px solid var(--primary-blue);
+            margin-left: 20px; padding-left: 30px; position: relative;
+        }
+        .story-item { margin-bottom: 30px; }
+        .story-item::before {
+            content: '❤'; position: absolute; left: -11px;
+            background: var(--bg-light); color: var(--dark-blue);
+        }
 
-        /* --- BUTTONS --- */
-        .btn-maps { display: inline-block; padding: 12px 30px; background: #1976d2; color: white; text-decoration: none; border-radius: 50px; margin-top: 20px; }
+        /* --- TOMBOL --- */
+        .btn {
+            background: var(--dark-blue); color: white;
+            padding: 12px 35px; border-radius: 50px;
+            text-decoration: none; display: inline-block;
+            transition: 0.3s; border: none; cursor: pointer;
+        }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(21, 101, 192, 0.4); }
 
-        .slide-up { transform: translateY(-100%); }
         #main-content { display: none; }
+        .slide-up { transform: translateY(-100%); }
     </style>
 </head>
 <body>
 
     <div id="cover">
-        <p style="letter-spacing: 5px;">THE WEDDING OF</p>
-        <h1 style="font-family: 'Great Vibes', cursive; font-size: 3.5em;">Rega & Safa</h1>
-        <div style="margin-top: 40px;">
-            Kepada Yth:<br>
-            <span id="tamu" style="font-size: 1.5em; font-weight: bold;">Nama Tamu</span>
+        <div class="cover-card" data-aos="zoom-in">
+            <p style="letter-spacing: 3px;">THE WEDDING OF</p>
+            <h1 style="font-family: 'Great Vibes', cursive; font-size: 3.5em; color: var(--dark-blue);">Rega & Safa</h1>
+            <div style="margin: 30px 0;">
+                <p>Kepada Yth:</p>
+                <h3 id="tamu">Nama Tamu</h3>
+            </div>
+            <button class="btn" onclick="bukaUndangan()">Buka Undangan</button>
         </div>
-        <button onclick="bukaUndangan()" style="margin-top: 30px; padding: 12px 40px; border: none; background: #1976d2; color: white; border-radius: 50px; cursor: pointer;">Buka Undangan</button>
     </div>
 
     <div id="main-content">
         <div class="hero">
-            <h1 style="font-family: 'Great Vibes', cursive; font-size: 4em;">Rega & Safa</h1>
-            <p>29 JULI 2026</p>
+            <div data-aos="fade-up" data-aos-duration="2000">
+                <h1>Rega & Safa</h1>
+                <p style="letter-spacing: 5px; font-size: 1.2em;">29 JULI 2026</p>
+            </div>
         </div>
 
         <section>
-            <div class="quran-box">
-                <p class="arabic">وَمِنْ اٰیٰتِهٖۤ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْۤا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً ۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ</p>
-                <p class="arti">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."</p>
-                <p style="font-weight: bold; margin-top: 15px;">(Q.S. Ar-Rum: 21)</p>
+            <div class="glass-card" data-aos="fade-up">
+                <p style="font-size: 1.2em; color: var(--dark-blue); line-height: 2;">وَمِنْ اٰیٰتِهٖۤ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْۤا اِلَيْهَا...</p>
+                <p class="arti">"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri..." (QS. Ar-Rum: 21)</p>
             </div>
         </section>
 
-        <section style="background-color: white;">
-            <h2 class="section-title">Mempelai</h2>
-            <div class="catin-container">
-                <div class="catin-card">
-                    <div class="foto-lingkaran" style="background-image: url('https://via.placeholder.com/200');"></div>
-                    <div class="nama-lengkap">Rega Aji Prayogo</div>
-                    <p class="ortu">Putra dari Pasangan<br>Bapak Nurkolis & Ibu Turistiana</p>
+        <section style="background: white;">
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 3em;" data-aos="fade-down">Mempelai</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 50px; margin-top: 40px;">
+                <div data-aos="fade-right">
+                    <div class="foto-frame" style="background-image: url('https://via.placeholder.com/200x300');"></div>
+                    <h3 style="font-family: 'Playfair Display';">Rega Aji Prayogo</h3>
+                    <p>Putra dari Bapak Nurkolis <br> & Ibu Turistiana</p>
                 </div>
-                
-                <div style="font-family: 'Great Vibes', cursive; font-size: 3em; color: #bbdefb; align-self: center;">&</div>
-
-                <div class="catin-card">
-                    <div class="foto-lingkaran" style="background-image: url('https://via.placeholder.com/200');"></div>
-                    <div class="nama-lengkap">Safa Tri Asriani</div>
-                    <p class="ortu">Putri dari Pasangan<br>Bapak [Nama Ayah] & Ibu [Nama Ibu]</p>
+                <div data-aos="fade-left">
+                    <div class="foto-frame" style="background-image: url('https://via.placeholder.com/200x300');"></div>
+                    <h3 style="font-family: 'Playfair Display';">Safa Tri Asriani</h3>
+                    <p>Putri dari Bapak [Nama Ayah] <br> & Ibu [Nama Ibu]</p>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2 class="section-title">Kisah Cinta</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-date">Masa SMK</div>
-                    <div class="timeline-text">Awal mula pertemuan kami dimulai dari bangku sekolah SMK. Berawal dari teman biasa yang saling berbagi tawa di sekolah.</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">Masa Pacaran</div>
-                    <div class="timeline-text">Seiring berjalannya waktu, rasa itu tumbuh. Kami memutuskan untuk saling berkomitmen dan menjalani hari bersama.</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">Mei 2026 - Lamaran</div>
-                    <div class="timeline-text">Pertemuan keluarga besar yang menjadi bukti keseriusan kami untuk melangkah ke jenjang yang lebih tinggi.</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">29 Juli 2026 - Pernikahan</div>
-                    <div class="timeline-text">Hari yang paling kami tunggu, saat kami mengikat janji suci di hadapan Allah SWT dan keluarga.</div>
+            <h2 style="font-family: 'Great Vibes', cursive; font-size: 3em;" data-aos="fade-up">Our Love Story</h2>
+            <div class="glass-card" style="text-align: left;">
+                <div class="story-box">
+                    <div class="story-item" data-aos="fade-up">
+                        <small><b>2019 - Masa SMK</b></small>
+                        <p>Berawal dari teman satu sekolah, sering bertemu di koridor hingga akhirnya mulai akrab.</p>
+                    </div>
+                    <div class="story-item" data-aos="fade-up">
+                        <small><b>2021 - Menjalin Rasa</b></small>
+                        <p>Setelah lulus, kami memutuskan untuk menjalani komitmen yang lebih serius.</p>
+                    </div>
+                    <div class="story-item" data-aos="fade-up">
+                        <small><b>Mei 2026 - Lamaran</b></small>
+                        <p>Langkah nyata menuju ibadah terpanjang, kami mengikat janji di depan keluarga.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section style="background-color: white;">
-            <h2 class="section-title">Detail Acara</h2>
-            <div style="background: #f1f8ff; padding: 30px; border-radius: 20px;">
-                <p><strong>AKAD & RESEPSI</strong></p>
-                <p>Rabu Wage, 29 Juli 2026</p>
-                <p>Pukul 09.00 WIB - Selesai</p>
-                <p>Lokasi: Trenggalek, Jawa Timur</p>
-                <a href="#" class="btn-maps">LIHAT LOKASI</a>
+        <section style="background: var(--primary-blue);">
+            <div class="glass-card" data-aos="zoom-in">
+                <h2 style="font-family: 'Great Vibes', cursive; font-size: 2.5em;">Save The Date</h2>
+                <p><b>Rabu Wage, 29 Juli 2026</b></p>
+                <p>Akad: 09.00 WIB | Resepsi: 11.00 WIB</p>
+                <p>Trenggalek, Jawa Timur</p>
+                <br>
+                <a href="#" class="btn">LIHAT LOKASI</a>
             </div>
         </section>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        AOS.init({ duration: 1000, once: true });
+
         function bukaUndangan() {
             document.getElementById('cover').classList.add('slide-up');
             document.getElementById('main-content').style.display = 'block';
             document.body.style.overflow = 'auto';
+            // Scroll ke atas setelah dibuka
+            window.scrollTo(0,0);
         }
+
         document.body.style.overflow = 'hidden';
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const nama = urlParams.get('to');
         if (nama) document.getElementById('tamu').innerText = nama;

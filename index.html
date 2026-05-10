@@ -69,15 +69,30 @@
   /* Background semi-transparan untuk teks */
   .sampul-teks-container {
     background: linear-gradient(135deg,
-      rgba(7,30,46,0.55) 0%,
-      rgba(14,61,92,0.60) 50%,
-      rgba(7,30,46,0.55) 100%);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(200,169,110,0.25);
-    border-radius: 32px;
-    padding: 2.5rem 2rem;
-    max-width: 420px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+      rgba(7,20,40,0.70) 0%,
+      rgba(10,35,65,0.65) 50%,
+      rgba(7,20,40,0.70) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(200,169,110,0.35);
+    border-radius: 24px;
+    padding: 2.5rem 2.2rem;
+    max-width: 380px;
+    width: 88%;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(200,169,110,0.2);
+    /* Sembunyikan dulu — muncul lewat animasi JS */
+    opacity: 0;
+  }
+
+  /* Semua elemen sampul tersembunyi dulu — JS yang animasikan */
+  #sampul-section .sampul-teks-kecil,
+  #sampul-section .sampul-ornamen,
+  #sampul-section .sampul-nama-utama,
+  #sampul-section .sampul-tanggal,
+  #sampul-section .divider-line,
+  #sampul-section .sampul-nama-tamu,
+  #sampul-section .btn-buka {
+    opacity: 0;
   }
 
   @keyframes fadeSlideUp {
@@ -1506,26 +1521,40 @@
   // Format: [delay teks 1, delay ornamen, delay nama utama, delay ornamen, delay tanggal, delay garis, delay "Kepada", delay nama tamu, delay tombol]
   const animTiming = {
     durasi: 0.75,
-    // ✅ UNTUK VIDEO 8 DETIK - TEKS MUNCUL DETIK KE-3
-    delays: [2.8, 3.1, 3.4, 3.7, 4.0, 4.3, 4.6, 4.9, 5.3]
-    // Jika video 10 detik:
-    // delays: [3.5, 3.8, 4.1, 4.4, 4.7, 5.0, 5.3, 5.6, 6.0]
-    // Jika video 12 detik:
-    // delays: [4.0, 4.3, 4.6, 4.9, 5.2, 5.5, 5.8, 6.1, 6.5]
+    // ✅ VIDEO 12 DETIK — TIRAI TERBUKA DI DETIK KE-6, TEKS MUNCUL DETIK KE-6
+    delays: [5.8, 6.1, 6.4, 6.7, 7.0, 7.3, 7.6, 7.9, 8.4]
   };
 
   function startOpeningAnimation() {
-    console.log('🎬 Animasi pembukaan dimulai');
+    console.log('🎬 Animasi pembukaan dimulai — tirai terbuka di detik ke-6');
+
+    // Munculkan container dulu di detik ke-6
+    const container = document.querySelector('.sampul-teks-container');
+    if (container) {
+      container.style.transition = 'opacity 0.8s ease';
+      setTimeout(() => {
+        container.style.opacity = '1';
+      }, animTiming.delays[0] * 1000);
+    }
+
+    // Lalu tiap elemen muncul berurutan di dalam container
     for (let i = 1; i <= 9; i++) {
       let el;
       if (i === 8) {
-        // Elemen nama-tamu punya id sendiri
         el = document.getElementById('nama-tamu');
       } else {
         el = document.getElementById(`anim-${i}`);
       }
       if (el) {
-        el.style.animation = `fadeSlideUp ${animTiming.durasi}s ease ${animTiming.delays[i-1]}s both`;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(14px)';
+        el.style.transition = `opacity 0.65s ease ${animTiming.delays[i-1]}s, transform 0.65s ease ${animTiming.delays[i-1]}s`;
+        // Trigger reflow supaya transition jalan
+        el.getBoundingClientRect();
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, animTiming.delays[i-1] * 1000);
       }
     }
   }

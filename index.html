@@ -160,6 +160,12 @@
     font-weight: 500;
   }
 
+  .sampul-divider-tipis {
+    width: 50px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,169,110,0.5), transparent);
+    margin: 0.5rem auto;
+  }
+
   .divider-line {
     width: 60px; height: 1px;
     background: linear-gradient(90deg, transparent, rgba(200,169,110,0.6), transparent);
@@ -1055,14 +1061,14 @@
   }
 
   .penutup-arch {
-    width: 160px; height: 200px;
+    width: 240px; height: 300px;
     margin: 0 auto 2rem;
-    border-radius: 80px 80px 20px 20px;
+    border-radius: 120px 120px 24px 24px;
     overflow: hidden;
-    border: 3px solid var(--emas);
+    border: 4px solid var(--emas);
     background: linear-gradient(135deg, var(--biru-muda), var(--biru));
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 10px 40px rgba(91,163,201,0.25);
+    box-shadow: 0 12px 50px rgba(27,79,114,0.3);
   }
 
   .penutup-arch img {
@@ -1331,7 +1337,7 @@
 <!-- MUSIK PLAYER -->
 <div id="musik-player">
   <div id="musik-info">
-    <span class="musik-scroll-teks">🎵 Nothing's Gonna Change My Love Saxophone &nbsp;&nbsp;&nbsp;&nbsp; 🎵 Nothing's Gonna Change My Love Saxophone</span>
+    <span class="musik-scroll-teks">🎵 Lestari &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🎵 Lestari</span>
   </div>
   <button id="musik-btn" onclick="toggleMusik()" title="Putar musik">▶</button>
 </div>
@@ -1362,13 +1368,14 @@
 
       <div class="divider-line anim-item"></div>
 
-      <p class="sampul-teks-kecil anim-item">Kepada Yth.</p>
-      <p class="sampul-nama-tamu anim-item" id="nama-tamu">
-        Bapak / Ibu / Saudara/i
-      </p>
+      <div class="sampul-divider-tipis anim-item"></div>
+      <p class="sampul-teks-kecil anim-item" style="margin-bottom:0.3rem;">Kepada Yth.</p>
+      <p class="sampul-teks-kecil anim-item" style="margin-bottom:0.2rem; opacity:0.85;">Bapak / Ibu / Saudara/i</p>
+      <p class="sampul-nama-tamu anim-item" id="nama-tamu">Nama Tamu</p>
+      <p class="sampul-teks-kecil anim-item" style="margin-top:0.1rem; margin-bottom:1rem; opacity:0.8;">Di Tempat</p>
 
       <button class="btn-buka anim-item" onclick="bukaUndangan()">
-        Buka Undangan
+        💌 Buka Undangan
       </button>
 
     </div>
@@ -1437,10 +1444,10 @@
             <p class="profil-gelar">Mempelai Pria</p>
             <p class="profil-desc">Putra Pertama dari</p>
             <div class="profil-ortu">
-              <strong>Bapak & Ibu</strong><br>
+              <strong>Bapak Nurkolis & Ibu Turistiana</strong><br>
               <span>Desa Karangan, Kec. Karangan<br>Trenggalek</span>
             </div>
-            <a class="instagram-icon-link" href="https://instagram.com/regaaji" target="_blank" title="@regaaji">
+            <a class="instagram-icon-link" href="https://www.instagram.com/reyygaa.23?igsh=MXNnbGxyaGs0dTE4dA==" target="_blank" title="@regaaji">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <circle cx="12" cy="12" r="4.5"/>
@@ -1476,12 +1483,12 @@
             </div>
             <p class="profil-nama">Safa Tri Asriani</p>
             <p class="profil-gelar">Mempelai Wanita</p>
-            <p class="profil-desc">Putri Pertama dari</p>
+            <p class="profil-desc">Putri Ketiga dari</p>
             <div class="profil-ortu">
-              <strong>Bapak & Ibu</strong><br>
+              <strong>Bapak Senen & Ibu Alfitri (Alm.)</strong><br>
               <span>Desa Gembleb, Kec. Pogalan<br>Trenggalek</span>
             </div>
-            <a class="instagram-icon-link" href="https://instagram.com/safatriasriani" target="_blank" title="@safatriasriani">
+            <a class="instagram-icon-link" href="https://www.instagram.com/safaatrsrn__?igsh=aXBhM3EyeWJ0MDM4" target="_blank" title="@safatriasriani">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <circle cx="12" cy="12" r="4.5"/>
@@ -1531,7 +1538,7 @@
         Desa Gembleb, Pogalan<br>
         Trenggalek, Jawa Timur
       </p>
-      <a class="lokasi-btn" href="https://maps.google.com" target="_blank">
+      <a class="lokasi-btn" href="https://maps.app.goo.gl/1qrH6iJhCMD3avWj7?g_st=aw" target="_blank">
         🗺️ Lihat Lokasi
       </a>
     </div>
@@ -1547,7 +1554,7 @@
       <div class="timeline-item" data-aos="fade-right">
         <div class="timeline-content">
           <span class="timeline-emoji">🏫</span>
-          <p class="timeline-tahun">2019 — 2022</p>
+          <p class="timeline-tahun">2017 — 2020</p>
           <p class="timeline-judul">Awal Pertemuan</p>
           <p class="timeline-teks">Dua jiwa yang bertemu di bangku SMK, di mana senyuman pertama menjadi awal dari sebuah cerita indah yang tak terduga.</p>
         </div>
@@ -1690,7 +1697,7 @@
   <!-- PENUTUP -->
   <section id="penutup" data-aos="fade-up">
     <div class="penutup-arch" data-aos="zoom-in">
-      <img src="" alt="Pengantin" onerror="this.style.display='none'">
+      <img src="bg-penutup.jpg" alt="Rega & Safa">
     </div>
 
     <p class="section-label" style="color:var(--biru-tua);" data-aos="fade-up" data-aos-delay="100">Terima Kasih</p>

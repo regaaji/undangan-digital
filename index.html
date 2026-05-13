@@ -70,9 +70,9 @@
   /* Background semi-transparan untuk teks */
   .sampul-teks-container {
     background: linear-gradient(135deg,
-      rgba(7,20,40,0.70) 0%,
-      rgba(10,35,65,0.65) 50%,
-      rgba(7,20,40,0.70) 100%);
+      rgba(7,20,40,0.72) 0%,
+      rgba(10,35,65,0.68) 50%,
+      rgba(7,20,40,0.72) 100%);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(200,169,110,0.35);
@@ -81,18 +81,34 @@
     max-width: 380px;
     width: 88%;
     box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(200,169,110,0.2);
-    /* Sembunyikan dulu — muncul lewat animasi JS */
+    /* Sembunyikan dulu — kotak + isi muncul BERSAMAAN */
     opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
   }
 
-  /* Semua elemen sampul tersembunyi dulu — JS yang animasikan */
-  #sampul-section .sampul-teks-kecil,
-  #sampul-section .sampul-ornamen,
-  #sampul-section .sampul-nama-utama,
-  #sampul-section .sampul-tanggal,
-  #sampul-section .divider-line,
-  #sampul-section .sampul-nama-tamu,
-  #sampul-section .btn-buka {
+  /* Saat aktif — semua muncul sekaligus */
+  .sampul-teks-container.muncul {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Tiap elemen di dalam juga fade in berurutan SETELAH kotak muncul */
+  .sampul-teks-container.muncul .anim-item {
+    animation: fadeSlideUp 0.6s ease forwards;
+  }
+  .sampul-teks-container.muncul .anim-item:nth-child(1) { animation-delay: 0.15s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(2) { animation-delay: 0.25s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(3) { animation-delay: 0.38s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(4) { animation-delay: 0.48s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(5) { animation-delay: 0.58s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(6) { animation-delay: 0.65s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(7) { animation-delay: 0.72s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(8) { animation-delay: 0.80s; }
+  .sampul-teks-container.muncul .anim-item:nth-child(9) { animation-delay: 0.90s; }
+
+  /* Semua .anim-item tersembunyi default */
+  .sampul-teks-container .anim-item {
     opacity: 0;
   }
 
@@ -239,80 +255,79 @@
     min-height: 100vh;
     background: url('bg-hero.jpg') center center / cover no-repeat;
     display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+    align-items: center; justify-content: flex-end;
     text-align: center;
-    padding: 3rem 1.5rem;
+    padding: 0;
     position: relative;
+    overflow: hidden;
   }
 
+  /* Overlay HANYA gradient bawah — wajah di atas tetap jelas */
   #hero::before {
     content: '';
     position: absolute; inset: 0;
     background: linear-gradient(to bottom,
-      rgba(5,15,30,0.55) 0%,
-      rgba(10,25,50,0.35) 45%,
-      rgba(5,15,30,0.65) 100%);
+      rgba(0,0,0,0.05) 0%,
+      rgba(0,0,0,0) 35%,
+      rgba(5,15,35,0.70) 68%,
+      rgba(5,15,35,0.95) 100%);
     z-index: 0;
   }
 
+  /* Kotak teks di paling bawah — tidak nabrak wajah */
   .hero-content {
     position: relative; z-index: 1;
-    background: rgba(5,15,30,0.35);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    border: 1px solid rgba(200,169,110,0.25);
-    border-radius: 20px;
-    padding: 2.5rem 3rem;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    width: 100%;
+    padding: 2.5rem 2rem 3rem;
+    text-align: center;
   }
 
   .hero-label-kecil {
     font-family: 'Poppins', sans-serif;
-    color: rgba(200,169,110,0.9);
-    font-size: 0.8rem;
-    letter-spacing: 5px;
+    color: rgba(200,169,110,0.85);
+    font-size: 0.75rem;
+    letter-spacing: 6px;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
     font-weight: 500;
+  }
+
+  .hero-divider {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,169,110,0.7), transparent);
+    margin: 0.7rem auto;
   }
 
   .hero-nama {
     font-family: 'Cormorant Garamond', serif;
     color: #ffffff;
-    font-size: 3.2rem;
-    line-height: 1.15;
-    margin-bottom: 0.3rem;
+    font-size: 2.8rem;
+    line-height: 1.1;
+    margin: 0;
     font-weight: 600;
     font-style: italic;
-    text-shadow: 0 3px 20px rgba(0,0,0,0.6);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.7);
     letter-spacing: 1px;
   }
 
   .hero-amp {
     font-family: 'Cormorant Garamond', serif;
     color: var(--emas-muda);
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-style: italic;
-    margin: 0.3rem 0;
+    margin: 0.1rem 0;
     font-weight: 300;
-    text-shadow: 0 2px 15px rgba(0,0,0,0.5);
-  }
-
-  .hero-divider {
-    width: 100px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--emas-muda), transparent);
-    margin: 1.2rem auto;
+    text-shadow: 0 2px 15px rgba(0,0,0,0.6);
   }
 
   .hero-tanggal {
     display: inline-block;
-    margin-top: 0.5rem;
-    color: rgba(232,213,170,0.95);
+    margin-top: 0.8rem;
+    color: rgba(232,213,170,0.85);
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 3px;
+    font-size: 0.9rem;
+    letter-spacing: 2.5px;
     font-weight: 500;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
   }
 
   /* ===== PEMBUKA ===== */
@@ -1333,27 +1348,29 @@
   </video>
 
   <div id="sampul-section">
-    <div class="sampul-teks-container">
-      <p class="sampul-teks-kecil" id="anim-1">The Wedding of</p>
-      <div class="sampul-ornamen" id="anim-2"></div>
+    <div class="sampul-teks-container" id="sampul-box">
 
-      <p class="sampul-nama-utama" id="anim-3">
+      <p class="sampul-teks-kecil anim-item">The Wedding of</p>
+      <div class="sampul-ornamen anim-item"></div>
+
+      <p class="sampul-nama-utama anim-item">
         Rega <span class="sampul-amp">&</span> Safa
       </p>
 
-      <div class="sampul-ornamen" id="anim-4"></div>
-      <p class="sampul-tanggal" id="anim-5">29 JULI 2026</p>
+      <div class="sampul-ornamen anim-item"></div>
+      <p class="sampul-tanggal anim-item">29 JULI 2026</p>
 
-      <div class="divider-line" id="anim-6"></div>
+      <div class="divider-line anim-item"></div>
 
-      <p class="sampul-teks-kecil" id="anim-7">Kepada Yth.</p>
-      <p class="sampul-nama-tamu" id="nama-tamu" data-anim="8">
+      <p class="sampul-teks-kecil anim-item">Kepada Yth.</p>
+      <p class="sampul-nama-tamu anim-item" id="nama-tamu">
         Bapak / Ibu / Saudara/i
       </p>
 
-      <button class="btn-buka" onclick="bukaUndangan()" id="anim-9">
+      <button class="btn-buka anim-item" onclick="bukaUndangan()">
         Buka Undangan
       </button>
+
     </div>
   </div>
 </div>
@@ -1790,37 +1807,17 @@
   };
 
   function startOpeningAnimation() {
-    console.log('🎬 Animasi pembukaan dimulai — tirai terbuka di detik ke-6');
+    console.log('🎬 Animasi pembukaan — kotak + isi muncul bersamaan');
 
-    // Munculkan container dulu di detik ke-6
-    const container = document.querySelector('.sampul-teks-container');
-    if (container) {
-      container.style.transition = 'opacity 0.8s ease';
-      setTimeout(() => {
-        container.style.opacity = '1';
-      }, animTiming.delays[0] * 1000);
-    }
+    const box = document.getElementById('sampul-box');
+    if (!box) return;
 
-    // Lalu tiap elemen muncul berurutan di dalam container
-    for (let i = 1; i <= 9; i++) {
-      let el;
-      if (i === 8) {
-        el = document.getElementById('nama-tamu');
-      } else {
-        el = document.getElementById(`anim-${i}`);
-      }
-      if (el) {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(14px)';
-        el.style.transition = `opacity 0.65s ease ${animTiming.delays[i-1]}s, transform 0.65s ease ${animTiming.delays[i-1]}s`;
-        // Trigger reflow supaya transition jalan
-        el.getBoundingClientRect();
-        setTimeout(() => {
-          el.style.opacity = '1';
-          el.style.transform = 'translateY(0)';
-        }, animTiming.delays[i-1] * 1000);
-      }
-    }
+    // Delay sesuai timing tirai terbuka (detik ke-6)
+    // Kotak muncul → lalu isi animasi berurutan cepat
+    setTimeout(() => {
+      box.classList.add('muncul');
+      console.log('✓ Sampul box muncul');
+    }, animTiming.delays[0] * 1000);
   }
 
   // Cegah video berulang - HANYA PLAY 1X

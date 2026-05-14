@@ -1780,29 +1780,33 @@
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
 
-  // Musik mulai saat pertama kali ada interaksi (tap/klik apapun)
-  function mulaiMusikPertamaKali() {
-    if (!musikMainkan) {
-      bgm.volume = 0;
-      bgm.play().then(() => {
-        musikMainkan = true;
-        musikBtn.textContent = '⏸';
-        musikBtn.classList.add('playing');
-        musikInfo.classList.remove('sembunyikan');
-        let vol = 0;
-        const fade = setInterval(() => {
-          vol = Math.min(vol + 0.04, 0.6);
-          bgm.volume = vol;
-          if (vol >= 0.6) clearInterval(fade);
-        }, 100);
-      }).catch(() => {});
-    }
-    document.removeEventListener('touchstart', mulaiMusikPertamaKali);
-    document.removeEventListener('click', mulaiMusikPertamaKali);
+  // Musik mulai langsung saat video cover play
+  // (browser mobile butuh 1 interaksi dulu — ini fallback terbaik)
+  function mulaiMusikCover() {
+    if (musikMainkan) return;
+    bgm.volume = 0;
+    bgm.play().then(() => {
+      musikMainkan = true;
+      musikBtn.textContent = '⏸';
+      musikBtn.classList.add('playing');
+      musikInfo.classList.remove('sembunyikan');
+      let vol = 0;
+      const fade = setInterval(() => {
+        vol = Math.min(vol + 0.03, 0.6);
+        bgm.volume = vol;
+        if (vol >= 0.6) clearInterval(fade);
+      }, 120);
+    }).catch(() => {
+      // Browser blokir autoplay — coba lagi saat ada sentuhan
+      document.addEventListener('touchstart', mulaiMusikCover, { once: true, passive: true });
+      document.addEventListener('click', mulaiMusikCover, { once: true });
+    });
   }
-  // Trigger saat sentuhan/klik pertama
-  document.addEventListener('touchstart', mulaiMusikPertamaKali, { once: true, passive: true });
-  document.addEventListener('click', mulaiMusikPertamaKali, { once: true });
+
+  // Langsung mulai saat halaman load — bersamaan dengan video
+  window.addEventListener('load', () => {
+    mulaiMusikCover(); // tanpa delay
+  });
 
   // ===== NAMA TAMU DARI URL =====
   // Cara pakai: tambahkan ?to=Nama+Tamu di akhir URL
@@ -1869,12 +1873,13 @@
     console.log(`⏱️ Durasi video: ${videoDuration.toFixed(2)} detik`);
   });
 
-  // Mulai animasi saat video play
+  // Saat video cover mulai — langsung play musik juga
   video.addEventListener('play', () => {
     console.log('▶️ Video mulai diputar');
     if (!videoMainkanSekaliSaja) {
       startOpeningAnimation();
     }
+    mulaiMusikCover();
   }, { once: true });
 
   // Jika video tidak ada/error, mulai animasi langsung
@@ -1954,8 +1959,8 @@
         console.log('✓ AOS initialized');
       }, 200);
       
-      // Mulai musik
-      otomatisMainkanMusik();
+      // Musik sudah jalan sejak cover — tidak perlu diulang
+      if (!musikMainkan) otomatisMainkanMusik();
       
       // Scroll ke atas halaman
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -2062,20 +2067,23 @@ END:VCALENDAR`;
   }
 
   function otomatisMainkanMusik() {
-    bgm.volume = 0;
-    bgm.play().then(() => {
-      musikMainkan = true;
-      musikBtn.textContent = '⏸';
-      musikBtn.classList.add('playing');
-      let vol = 0;
-      const fade = setInterval(() => {
-        vol = Math.min(vol + 0.05, 0.65);
-        bgm.volume = vol;
-        if (vol >= 0.65) clearInterval(fade);
-      }, 100);
-    }).catch(() => {
-      musikBtn.textContent = '▶';
-    });
+    // Musik sudah mulai sejak cover — tidak perlu restart
+    // Hanya pastikan tidak pause
+    if (!musikMainkan) {
+      bgm.volume = 0;
+      bgm.play().then(() => {
+        musikMainkan = true;
+        musikBtn.textContent = '⏸';
+        musikBtn.classList.add('playing');
+        musikInfo.classList.remove('sembunyikan');
+        let vol = 0;
+        const fade = setInterval(() => {
+          vol = Math.min(vol + 0.05, 0.65);
+          bgm.volume = vol;
+          if (vol >= 0.65) clearInterval(fade);
+        }, 100);
+      }).catch(() => {});
+    }
   }
 
   // ===== PROFIL SLIDER =====

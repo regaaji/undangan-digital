@@ -1782,7 +1782,11 @@
 
   // Musik mulai langsung saat video cover play
   // (browser mobile butuh 1 interaksi dulu — ini fallback terbaik)
-  function mulaiMusikCover() {
+  // ===== LOGIKA MUSIK =====
+  // Musik mulai saat tamu klik link → halaman terbuka
+  // Browser menganggap "klik link" = interaksi valid → autoplay diizinkan
+  
+  function fadeMasukMusik() {
     if (musikMainkan) return;
     bgm.volume = 0;
     bgm.play().then(() => {
@@ -1790,22 +1794,50 @@
       musikBtn.textContent = '⏸';
       musikBtn.classList.add('playing');
       musikInfo.classList.remove('sembunyikan');
+      // Fade in volume perlahan
       let vol = 0;
       const fade = setInterval(() => {
-        vol = Math.min(vol + 0.03, 0.6);
+        vol = Math.min(vol + 0.03, 0.65);
         bgm.volume = vol;
-        if (vol >= 0.6) clearInterval(fade);
-      }, 120);
-    }).catch(() => {
-      // Browser blokir autoplay — coba lagi saat ada sentuhan
-      document.addEventListener('touchstart', mulaiMusikCover, { once: true, passive: true });
-      document.addEventListener('click', mulaiMusikCover, { once: true });
+        if (vol >= 0.65) clearInterval(fade);
+      }, 100);
+      console.log('🎵 Musik mulai');
+    }).catch((err) => {
+      // Jika masih diblokir, tunggu sentuhan pertama
+      console.log('⏳ Tunggu interaksi:', err.message);
+      const startOnTouch = () => fadeMasukMusik();
+      document.addEventListener('touchstart', startOnTouch, { once: true, passive: true });
+      document.addEventListener('click', startOnTouch, { once: true });
     });
   }
 
-  // Langsung mulai saat halaman load — bersamaan dengan video
+  // Musik berhenti saat tab ditutup / keluar halaman
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      bgm.pause();
+      musikMainkan = false;
+      musikBtn.textContent = '▶';
+      musikBtn.classList.remove('playing');
+    } else if (document.visibilityState === 'visible' && !musikMainkan) {
+      // Kembali ke tab → lanjut musik otomatis
+      fadeMasukMusik();
+    }
+  });
+
+  // Berhenti saat browser ditutup / pindah halaman
+  window.addEventListener('pagehide', () => {
+    bgm.pause();
+    bgm.currentTime = 0;
+  });
+
+  window.addEventListener('beforeunload', () => {
+    bgm.pause();
+  });
+
+  // Mulai musik langsung saat halaman load
+  // Browser HP mengizinkan autoplay jika user baru klik link (navigation gesture)
   window.addEventListener('load', () => {
-    mulaiMusikCover(); // tanpa delay
+    fadeMasukMusik();
   });
 
   // ===== NAMA TAMU DARI URL =====

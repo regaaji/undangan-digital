@@ -77,9 +77,9 @@
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(200,169,110,0.35);
     border-radius: 24px;
-    padding: 2.5rem 2.2rem;
-    max-width: 380px;
-    width: 88%;
+    padding: 3rem 2.5rem;
+    max-width: 390px;
+    width: 90%;
     box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(200,169,110,0.2);
     /* Sembunyikan dulu — kotak + isi muncul BERSAMAAN */
     opacity: 0;
@@ -1356,23 +1356,22 @@
   <div id="sampul-section">
     <div class="sampul-teks-container" id="sampul-box">
 
-      <p class="sampul-teks-kecil anim-item">The Wedding of</p>
-      <div class="sampul-ornamen anim-item"></div>
+      <p class="sampul-teks-kecil anim-item" style="letter-spacing:4px; margin-bottom:0.8rem;">The Wedding of</p>
+      <div class="sampul-ornamen anim-item" style="margin:0.6rem auto;"></div>
 
-      <p class="sampul-nama-utama anim-item">
+      <p class="sampul-nama-utama anim-item" style="margin:0.8rem 0;">
         Rega <span class="sampul-amp">&</span> Safa
       </p>
 
-      <div class="sampul-ornamen anim-item"></div>
-      <p class="sampul-tanggal anim-item">29 JULI 2026</p>
+      <div class="sampul-ornamen anim-item" style="margin:0.6rem auto;"></div>
+      <p class="sampul-tanggal anim-item" style="margin:0.8rem 0 1.4rem;">29 JULI 2026</p>
 
-      <div class="divider-line anim-item"></div>
+      <div class="sampul-divider-tipis anim-item" style="margin-bottom:1.2rem;"></div>
 
-      <div class="sampul-divider-tipis anim-item"></div>
-      <p class="sampul-teks-kecil anim-item" style="margin-bottom:0.3rem;">Kepada Yth.</p>
-      <p class="sampul-teks-kecil anim-item" style="margin-bottom:0.2rem; opacity:0.85;">Bapak / Ibu / Saudara/i</p>
-      <p class="sampul-nama-tamu anim-item" id="nama-tamu">Nama Tamu</p>
-      <p class="sampul-teks-kecil anim-item" style="margin-top:0.1rem; margin-bottom:1rem; opacity:0.8;">Di Tempat</p>
+      <p class="sampul-teks-kecil anim-item" style="margin-bottom:0.6rem; letter-spacing:2px;">Kepada Yth.</p>
+      <p class="sampul-teks-kecil anim-item" style="margin-bottom:0.6rem; opacity:0.85; font-size:0.8rem;">Bapak / Ibu / Saudara/i</p>
+      <p class="sampul-nama-tamu anim-item" id="nama-tamu" style="margin:0.4rem 0 0.6rem; font-size:1.1rem;">Nama Tamu</p>
+      <p class="sampul-teks-kecil anim-item" style="opacity:0.75; margin-bottom:1.8rem; font-size:0.72rem; letter-spacing:2px;">Di Tempat</p>
 
       <button class="btn-buka anim-item" onclick="bukaUndangan()">
         💌 Buka Undangan
@@ -1664,18 +1663,18 @@
     <div class="gift-cards" id="gift-cards">
       <div class="atm-card" data-aos="fade-up">
         <div class="atm-bank">🏦 Bank BRI</div>
-        <div class="atm-nomor">1234 •••• •••• 5678</div>
+        <div class="atm-nomor">6560 0102 2380 539</div>
         <div class="atm-nama">Rega Aji Prayogo</div>
-        <button class="atm-copy-btn" onclick="salin('1234567890125678','BRI')">
+        <button class="atm-copy-btn" onclick="salin('6560010223800539','BRI')">
           📋 Salin
         </button>
       </div>
 
       <div class="atm-card" style="background:linear-gradient(135deg, #1565C0 0%, #1976D2 50%, #0D47A1 100%);" data-aos="fade-up" data-aos-delay="100">
         <div class="atm-bank">💙 DANA</div>
-        <div class="atm-nomor">0812 •••• •••• 3456</div>
+        <div class="atm-nomor">0858 5500 6751</div>
         <div class="atm-nama">Safa Tri Asriani</div>
-        <button class="atm-copy-btn" onclick="salin('081234563456','DANA')">
+        <button class="atm-copy-btn" onclick="salin('085855006751','DANA')">
           📋 Salin
         </button>
       </div>
@@ -1683,13 +1682,17 @@
       <div class="alamat-card" data-aos="fade-up" data-aos-delay="200">
         <div class="alamat-icon">🏡</div>
         <p class="alamat-judul">Pengiriman Langsung</p>
-        <p class="alamat-detail">
+        <p class="alamat-detail" id="teks-alamat">
           <strong>a.n. Safa Tri Asriani</strong><br>
-          Desa Gembleb, RT 02 / RW 01<br>
+          Desa Gembleb, RT 25 / RW 09<br>
           Kecamatan Pogalan<br>
           Trenggalek, Jawa Timur<br>
-          <strong>Kode Pos: 66371</strong>
+          <strong>Kode Pos: 66271</strong>
         </p>
+        <button class="atm-copy-btn" style="margin:0.8rem auto 0; background:rgba(27,79,114,0.1); border-color:rgba(27,79,114,0.3); color:var(--biru-tua);"
+          onclick="salinAlamat()">
+          📋 Salin Alamat
+        </button>
       </div>
     </div>
   </section>
@@ -1776,6 +1779,30 @@
   // Start - hide body scroll
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
+
+  // Musik mulai saat pertama kali ada interaksi (tap/klik apapun)
+  function mulaiMusikPertamaKali() {
+    if (!musikMainkan) {
+      bgm.volume = 0;
+      bgm.play().then(() => {
+        musikMainkan = true;
+        musikBtn.textContent = '⏸';
+        musikBtn.classList.add('playing');
+        musikInfo.classList.remove('sembunyikan');
+        let vol = 0;
+        const fade = setInterval(() => {
+          vol = Math.min(vol + 0.04, 0.6);
+          bgm.volume = vol;
+          if (vol >= 0.6) clearInterval(fade);
+        }, 100);
+      }).catch(() => {});
+    }
+    document.removeEventListener('touchstart', mulaiMusikPertamaKali);
+    document.removeEventListener('click', mulaiMusikPertamaKali);
+  }
+  // Trigger saat sentuhan/klik pertama
+  document.addEventListener('touchstart', mulaiMusikPertamaKali, { once: true, passive: true });
+  document.addEventListener('click', mulaiMusikPertamaKali, { once: true });
 
   // ===== NAMA TAMU DARI URL =====
   // Cara pakai: tambahkan ?to=Nama+Tamu di akhir URL
@@ -2124,6 +2151,15 @@ END:VCALENDAR`;
   }
 
   // ===== SALIN =====
+  function salinAlamat() {
+    const alamat = 'a.n. Safa Tri Asriani\nDesa Gembleb, RT 25 / RW 09\nKecamatan Pogalan\nTrenggalek, Jawa Timur\nKode Pos: 66271';
+    navigator.clipboard.writeText(alamat).then(() => {
+      tampilToast('Alamat berhasil disalin! 📋');
+    }).catch(() => {
+      tampilToast('Alamat: Desa Gembleb RT 25/09, Pogalan, Trenggalek 66271');
+    });
+  }
+
   function salin(teks, nama) {
     navigator.clipboard.writeText(teks).then(() => {
       tampilToast('Nomor ' + nama + ' disalin! ✓');

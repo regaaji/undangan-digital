@@ -1746,22 +1746,22 @@
 
     <div class="galeri-grid" id="galeri-grid">
       <div class="galeri-item" data-aos="zoom-in" data-aos-delay="100" onclick="bukaGaleri(0)">
-        <img src="" alt="Foto 1" onerror="this.parentElement.style.background='linear-gradient(135deg,#a8d4ec,#5ba3c9);this.style.display=none'">
+        <img src="gallery-1.jpg" alt="Rega & Safa - Foto 1" loading="lazy">
       </div>
       <div class="galeri-item" data-aos="zoom-in" data-aos-delay="150" onclick="bukaGaleri(1)">
-        <img src="" alt="Foto 2" onerror="this.parentElement.style.background='linear-gradient(135deg,#a8d4ec,#5ba3c9);this.style.display=none'">
+        <img src="gallery-2.jpg" alt="Rega & Safa - Foto 2" loading="lazy">
       </div>
       <div class="galeri-item" data-aos="zoom-in" data-aos-delay="200" onclick="bukaGaleri(2)">
-        <img src="" alt="Foto 3" onerror="this.parentElement.style.background='linear-gradient(135deg,#a8d4ec,#5ba3c9);this.style.display=none'">
+        <img src="gallery-3.jpg" alt="Rega & Safa - Foto 3" loading="lazy">
       </div>
       <div class="galeri-item" data-aos="zoom-in" data-aos-delay="250" onclick="bukaGaleri(3)">
-        <img src="" alt="Foto 4" onerror="this.parentElement.style.background='linear-gradient(135deg,#a8d4ec,#5ba3c9);this.style.display=none'">
+        <img src="gallery-4.jpg" alt="Rega & Safa - Foto 4" loading="lazy">
       </div>
       <div class="galeri-item" data-aos="zoom-in" data-aos-delay="300" onclick="bukaGaleri(4)">
-        <img src="" alt="Foto 5" onerror="this.parentElement.style.background='linear-gradient(135deg,#a8d4ec,#5ba3c9);this.style.display=none'">
+        <img src="gallery-5.jpg" alt="Rega & Safa - Foto 5" loading="lazy">
       </div>
       <div class="galeri-item" data-aos="zoom-in" data-aos-delay="350" onclick="bukaGaleri(5)">
-        <img src="" alt="Foto 6" onerror="this.parentElement.style.background='linear-gradient(135deg,#a8d4ec,#5ba3c9);this.style.display=none'">
+        <img src="gallery-6.jpg" alt="Rega & Safa - Foto 6" loading="lazy">
       </div>
     </div>
   </section>
@@ -1769,7 +1769,7 @@
   <!-- GALERI OVERLAY -->
   <div class="galeri-overlay" id="galeri-overlay">
     <button onclick="tutupGaleri()" style="position:absolute;top:1.5rem;right:1.5rem;background:rgba(255,255,255,0.15);border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.2rem;font-weight:bold;">✕</button>
-    <img id="galeri-gambar-besar" src="" alt="">
+    <img id="galeri-gambar-besar" src="" alt="" style="max-width:95%;max-height:78vh;border-radius:16px;border:2px solid var(--emas);object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
     <div class="galeri-aksi">
       <button onclick="prevGaleri()">← Sebelumnya</button>
       <button onclick="unduhGaleri()">⬇ Unduh</button>
@@ -2221,9 +2221,9 @@ END:VCALENDAR`;
 
   function bukaGaleri(idx) {
     indeksGaleri = idx;
-    const img = document.querySelectorAll('.galeri-item img')[idx];
-    if (img && img.src) {
-      document.getElementById('galeri-gambar-besar').src = img.src;
+    const imgs = document.querySelectorAll('.galeri-item img');
+    if (imgs[idx]) {
+      document.getElementById('galeri-gambar-besar').src = imgs[idx].src;
       document.getElementById('galeri-overlay').classList.add('buka');
       document.body.style.overflow = 'hidden';
     }
@@ -2237,28 +2237,25 @@ END:VCALENDAR`;
   function prevGaleri() {
     const items = document.querySelectorAll('.galeri-item img');
     indeksGaleri = (indeksGaleri - 1 + items.length) % items.length;
-    const img = items[indeksGaleri];
-    if (img && img.src) {
-      document.getElementById('galeri-gambar-besar').src = img.src;
-    }
+    document.getElementById('galeri-gambar-besar').src = items[indeksGaleri].src;
   }
 
   function nextGaleri() {
     const items = document.querySelectorAll('.galeri-item img');
     indeksGaleri = (indeksGaleri + 1) % items.length;
-    const img = items[indeksGaleri];
-    if (img && img.src) {
-      document.getElementById('galeri-gambar-besar').src = img.src;
-    }
+    document.getElementById('galeri-gambar-besar').src = items[indeksGaleri].src;
   }
 
   function unduhGaleri() {
     const imgSrc = document.getElementById('galeri-gambar-besar').src;
-    if (imgSrc && imgSrc !== '') {
+    if (imgSrc) {
       const link = document.createElement('a');
       link.href = imgSrc;
-      link.download = 'foto-rega-safa-' + (indeksGaleri + 1) + '.jpg';
+      link.setAttribute('download', 'foto-rega-safa-' + (indeksGaleri + 1) + '.jpg');
+      link.setAttribute('target', '_blank');
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     }
   }
 
